@@ -2,16 +2,16 @@ const usersRouter = require('express').Router()
 const userExtractor = require('../middlewares/userExtractor')
 const User = require('../models/User')
 
-usersRouter.get('/', async (req, res) => {
-  const users = await User.find({}).populate('movements', {
-    amount: 1,
-    description: 1,
-    date: 1
-  })
-  res.json(users)
-})
+// usersRouter.get('/', async (req, res) => {
+//   const users = await User.find({}).populate('movements', {
+//     amount: 1,
+//     description: 1,
+//     date: 1
+//   })
+//   res.json(users)
+// })
 
-usersRouter.get('/:id', async (req, res, next) => {
+usersRouter.get('/:id', userExtractor, async (req, res, next) => {
   const { id } = req.params
 
   try {
